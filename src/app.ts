@@ -1,13 +1,13 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (request, response) => response.json({message: "Hello Word"}))
+app.get('/', (request, response) => response.json({ message: 'Hello Word' }));
 
-app.post('/', (request, response) => response.json({message: "Usuário criado com sucesso"}))
+app.post('/', (request, response) => response.json({ message: 'Usuário criado com sucesso' }));
 
-export {app}
+export { app };
