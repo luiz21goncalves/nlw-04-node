@@ -5,13 +5,12 @@ import cors from 'cors';
 
 import './database';
 
+import { routes } from './routes';
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-app.get('/', (request, response) => response.json({ message: 'Hello Word' }));
-
-app.post('/', (request, response) => response.json({ message: 'Usuário criado com sucesso' }));
+app.use(routes);
 
 export { app };
