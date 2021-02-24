@@ -5,7 +5,7 @@
   "username": "docker",
   "password": "docker",
   "database": "api",
-  "logger": true,
+  "logging": true,
   "entities": [
     "./src/entities/*.ts"
   ],
