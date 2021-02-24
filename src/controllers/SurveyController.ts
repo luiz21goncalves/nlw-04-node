@@ -5,6 +5,14 @@ import { SurveysRepository } from '../repositories/SurveysRepository copy';
 import { CreateSurveyService } from '../services/CreateSurveyService';
 
 class SurveyController {
+  async index(_: Request, response: Response): Promise<Response> {
+    const surveysRepository = getCustomRepository(SurveysRepository);
+
+    const surveys = await surveysRepository.find();
+
+    return response.json(surveys);
+  }
+
   async create(request: Request, response: Response): Promise<Response> {
     const { title, description } = request.body;
 
