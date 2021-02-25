@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import { UsersRepository } from '../repositories/UsersRepository';
-import { CreateUserService } from '../services/CreateUserService';
 
 class UserController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -10,19 +9,24 @@ class UserController {
 
     const usersRepository = getCustomRepository(UsersRepository);
 
-    try {
-      const createUser = new CreateUserService(usersRepository);
+    const userAlreadyExists = await usersRepository.findOne({
+      where: { email },
+    });
 
-      const user = await createUser.execute({ name, email });
-
-      await usersRepository.save(user);
-
-      return response.status(201).json(user);
-    } catch (error) {
+    if (userAlreadyExists) {
       return response.status(400).json({
-        message: error.message ?? 'Unexpected error',
+        message: 'User already exists!',
       });
     }
+
+    const user = usersRepository.create({
+      name,
+      email,
+    });
+
+    await usersRepository.save(user);
+
+    return response.status(201).json(user);
   }
 }
 

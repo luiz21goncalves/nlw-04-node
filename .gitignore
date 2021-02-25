@@ -117,3 +117,6 @@ dist
 
 # Database config
 ormconfig.json
+
+# Sqlite
+*.sqlite

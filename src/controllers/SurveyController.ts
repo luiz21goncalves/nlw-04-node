@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-import { SurveysRepository } from '../repositories/SurveysRepository copy';
-import { CreateSurveyService } from '../services/CreateSurveyService';
+import { SurveysRepository } from '../repositories/SurveysRepository';
 
 class SurveyController {
   async index(_: Request, response: Response): Promise<Response> {
@@ -18,20 +17,14 @@ class SurveyController {
 
     const surveysRepository = getCustomRepository(SurveysRepository);
 
-    try {
-      const createSurvey = new CreateSurveyService(surveysRepository);
+    const survey = surveysRepository.create({
+      title,
+      description,
+    });
 
-      const survey = await createSurvey.execute({
-        title,
-        description,
-      });
+    await surveysRepository.save(survey);
 
-      return response.status(201).json(survey);
-    } catch (error) {
-      return response.status(400).json({
-        message: error.message ?? 'Unexpected error',
-      });
-    }
+    return response.status(201).json(survey);
   }
 }
 
