@@ -1,8 +1,8 @@
 # NLW 04 TRILHA NODE
 
 - [x] Dia 01 - criação da base da api **NodeJS**.
-- [ ] Dia 02 - aguardando...
-- [ ] Dia 03 - aguardando...
+- [x] Dia 02 - adicionando banco de dados
+- [x] Dia 03 - adicionando testes
 - [ ] Dia 04 - aguardando...
 - [ ] Dia 05 - aguardando...
 
@@ -11,6 +11,8 @@
 ## Requisitos
 
 - [ ] Ter **Node** instalado ou [clique aqui](https://nodejs.org/en/) para instalar
+- [ ] Ter **Docker** instalado ou [clique aqui](https://docs.docker.com/engine/install/) para instalar
+- [ ] Ter **Docker Compose** instalado ou [clique aqui](https://docs.docker.com/compose/install/) para instalar
 
 ---
 
@@ -24,12 +26,15 @@
   cd api
 
   ## instalando dependencias
-  yarn
-  ##ou
-  npm install
+  yarn ou npm install
+
+  ## criar container docker
+  ## docker e docker-compose precisam de privilégios de administrador para funcionarem corretamente
+  docker-compose up -d
 
   ## para iniciar a api
-  yarn dev
-  ##ou
-  npm run dev
+  yarn dev ou npm run dev
+
+  ## para executar testes
+  yarn test ou npm run test
 ```
