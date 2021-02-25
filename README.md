@@ -3,7 +3,7 @@
 - [x] Dia 01 - criação da base da api **NodeJS**.
 - [x] Dia 02 - adicionando banco de dados
 - [x] Dia 03 - adicionando testes
-- [ ] Dia 04 - aguardando...
+- [x] Dia 04 - enviando emails
 - [ ] Dia 05 - aguardando...
 
 ---
