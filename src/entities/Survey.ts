@@ -8,12 +8,12 @@ import {
 import { v4 as uuid } from 'uuid';
 
 @Entity('surveys')
-class Surveys {
+class Survey {
   @PrimaryColumn('uuid')
-  readonly id : string
+  readonly id : string;
 
   @Column()
-  title: string
+  title: string;
 
   @Column()
   description: string;
@@ -31,4 +31,4 @@ class Surveys {
   }
 }
 
-export { Surveys };
+export { Survey };
