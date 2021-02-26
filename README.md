@@ -4,7 +4,7 @@
 - [x] Dia 02 - adicionando banco de dados
 - [x] Dia 03 - adicionando testes
 - [x] Dia 04 - enviando emails
-- [ ] Dia 05 - aguardando...
+- [X] Dia 05 - calculando NPS.
 
 ---
 
