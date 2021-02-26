@@ -10,7 +10,6 @@ export default async (): Promise<Connection> => {
       port: null,
       username: null,
       password: null,
-      logging: false,
     });
   }
 

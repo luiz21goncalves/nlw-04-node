@@ -1,15 +1,28 @@
 import { Response, Request } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { resolve } from 'path';
+import * as yup from 'yup';
 
 import { SurveysRepository } from '../repositories/SurveysRepository';
 import { SurveysUsersRepository } from '../repositories/SurveysusersRepository';
 import { UsersRepository } from '../repositories/UsersRepository';
 import SendMailService from '../services/SendMailService';
+import { AppError } from '../errors/AppError';
 
 class SendMailController {
   async execute(request: Request, response: Response): Promise<Response> {
     const { email, survey_id } = request.body;
+
+    const schema = yup.object().shape({
+      email: yup.string().email().required(),
+      survey_id: yup.string().uuid().required(),
+    });
+
+    try {
+      await schema.validate({ email, survey_id }, { abortEarly: false });
+    } catch (err) {
+      throw new AppError(err);
+    }
 
     const usersRepository = getCustomRepository(UsersRepository);
     const surveysRepository = getCustomRepository(SurveysRepository);
@@ -18,9 +31,7 @@ class SendMailController {
     const user = await usersRepository.findOne({ where: { email } });
 
     if (!user) {
-      return response.status(400).json({
-        message: 'User does not exists!',
-      });
+      throw new AppError('User does not exists!');
     }
 
     const survey = await surveysRepository.findOne(
@@ -32,16 +43,14 @@ class SendMailController {
     );
 
     if (!survey) {
-      return response.status(400).json({
-        message: 'Survey does not exists!',
-      });
+      throw new AppError('Survey does not exists!');
     }
 
     const surveyUserAlreadyExists = await surveysUsersRepository.findOne({
-      where: [
-        { user_id: user.id },
-        { value: null },
-      ],
+      where: {
+        user_id: user.id,
+        value: null,
+      },
       relations: ['user', 'survey'],
     });
 
@@ -54,7 +63,7 @@ class SendMailController {
           email: user.email,
         },
         survey,
-        user_id: user.id,
+        id: surveyUserAlreadyExists.id,
         mailPath,
         link: process.env.NPS_URL,
       });
@@ -75,7 +84,7 @@ class SendMailController {
         email: user.email,
       },
       survey,
-      user_id: user.id,
+      id: surveyUser.id,
       mailPath,
       link: process.env.NPS_URL,
     });

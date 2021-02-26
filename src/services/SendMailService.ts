@@ -13,7 +13,7 @@ interface ISendMailDTO {
   to: IMailContact;
   from?: IMailContact;
   survey: Survey;
-  user_id: string;
+  id: string;
   mailPath: string;
   link: string;
 }
@@ -41,7 +41,7 @@ class SendMailService {
     to,
     from,
     survey,
-    user_id,
+    id,
     link,
     mailPath,
   }: ISendMailDTO): Promise<void> {
@@ -53,7 +53,7 @@ class SendMailService {
       name: to.name,
       title: survey.title,
       description: survey.description,
-      user_id,
+      id,
       link,
     };
 
