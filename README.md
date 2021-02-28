@@ -25,6 +25,9 @@
   ## entre no diretorio
   cd api
 
+  ## copie as configurações para conexão com db
+  cp ormconfig.example.json ormconfig.json
+
   ## instalando dependencias
   yarn ou npm install
 
